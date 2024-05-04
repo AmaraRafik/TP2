@@ -7,6 +7,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.widget.TextView;
 
+
 public class ActivityOne extends AppCompatActivity {
 
     private SensorManager sensorManager;
@@ -15,18 +16,21 @@ public class ActivityOne extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_one);
+        setContentView(R.layout.activity_main);
 
-        textView = findViewById(R.id.textView);
+        listView = findViewById(R.id.listView);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
-        Sensor gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ALL);
+        List<String> sensorNames = new ArrayList<>();
 
-        if (gyroscopeSensor == null) {
-            textView.setText("Le gyroscope n'est pas disponible. Certaines fonctionnalités peuvent ne pas fonctionner.");
-        } else {
-            textView.setText("Le gyroscope est disponible. Toutes les fonctionnalités sont opérationnelles.");
+        for (Sensor sensor : sensorList) {
+            sensorNames.add(sensor.getName());  // Ajouter uniquement le nom du capteur à la liste
         }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, sensorNames);
+        listView.setAdapter(adapter);
 
         Button returnButton = findViewById(R.id.returnButton);
         returnButton.setOnClickListener(v -> finish());
