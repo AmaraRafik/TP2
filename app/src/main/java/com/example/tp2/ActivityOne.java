@@ -6,34 +6,52 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.widget.TextView;
-
+import android.widget.ArrayAdapter;
+import java.util.List;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
 
 public class ActivityOne extends AppCompatActivity {
 
     private SensorManager sensorManager;
-    private TextView textView;
+    private ListView listView;
+    private Button returnButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_one);
 
         listView = findViewById(R.id.listView);
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        returnButton = findViewById(R.id.returnButton);
 
-        List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ALL);
-        List<String> sensorNames = new ArrayList<>();
-
-        for (Sensor sensor : sensorList) {
-            sensorNames.add(sensor.getName());  // Ajouter uniquement le nom du capteur à la liste
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, sensorNames);
-        listView.setAdapter(adapter);
-
-        Button returnButton = findViewById(R.id.returnButton);
         returnButton.setOnClickListener(v -> finish());
+
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        List<Sensor> sensors = sensorManager.getSensorList(Sensor.TYPE_ALL);
+        SensorAdapter adapter = new SensorAdapter(sensors);
+        listView.setAdapter(adapter);
     }
 
+    private class SensorAdapter extends ArrayAdapter<Sensor> {
+        SensorAdapter(List<Sensor> sensors) {
+            super(ActivityOne.this, R.layout.sensor_item, sensors);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = getLayoutInflater().inflate(R.layout.sensor_item, parent, false);
+            }
+            TextView textViewName = convertView.findViewById(R.id.textViewSensorName);
+            TextView textViewVersion = convertView.findViewById(R.id.textViewSensorVersion);
+
+            Sensor sensor = getItem(position);
+            textViewName.setText(sensor.getName());
+            textViewVersion.setText("Version: " + sensor.getVersion());
+
+            return convertView;
+        }
+    }
 }

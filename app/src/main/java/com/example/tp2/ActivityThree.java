@@ -9,7 +9,7 @@ public class ActivityThree extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_one);
+        setContentView(R.layout.activity_three);
         Button returnButton = findViewById(R.id.returnButton);
         returnButton.setOnClickListener(v -> finish());
     }

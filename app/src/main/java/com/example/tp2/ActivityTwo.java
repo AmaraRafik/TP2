@@ -9,7 +9,7 @@ public class ActivityTwo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_one);
+        setContentView(R.layout.activity_two);
         Button returnButton = findViewById(R.id.returnButton);
         returnButton.setOnClickListener(v -> finish());
     }
