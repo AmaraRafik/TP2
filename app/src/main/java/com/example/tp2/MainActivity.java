@@ -15,10 +15,10 @@ public class MainActivity extends AppCompatActivity {
 
         setupButton(R.id.button1, ActivityOne.class);
         setupButton(R.id.button2, ActivityTwo.class);
-        setupButton(R.id.button2, ActivityThree.class);
-        setupButton(R.id.button2, ActivityFour.class);
-        setupButton(R.id.button2, ActivityFive.class);
-        setupButton(R.id.button2, ActivitySix.class);
+        setupButton(R.id.button3, ActivityThree.class);
+        setupButton(R.id.button4, ActivityFour.class);
+        setupButton(R.id.button5, ActivityFive.class);
+        setupButton(R.id.button6, ActivitySix.class);
         setupButton(R.id.button7, ActivitySeven.class);
     }
 
