@@ -13,13 +13,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setupButton(R.id.button1, null);
-        setupButton(R.id.button2, null);
-        setupButton(R.id.button3, null);
-        setupButton(R.id.button4, null);
-        setupButton(R.id.button5, null);
-        setupButton(R.id.button6, null);
-        setupButton(R.id.button7, null);
+        setupButton(R.id.button1, ActivityOne.class);
+        setupButton(R.id.button2, ActivityTwo.class);
+        setupButton(R.id.button2, ActivityThree.class);
+        setupButton(R.id.button2, ActivityFour.class);
+        setupButton(R.id.button2, ActivityFive.class);
+        setupButton(R.id.button2, ActivitySix.class);
+        setupButton(R.id.button7, ActivitySeven.class);
     }
 
     private void setupButton(int buttonId, Class activityClass) {
