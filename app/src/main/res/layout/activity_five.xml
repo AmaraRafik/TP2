@@ -10,4 +10,21 @@
         android:text="Return"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"/>
+
+    <Switch
+        android:id="@+id/flashlightSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textOff="Flash OFF"
+        android:textOn="Flash ON" />
+
+    <TextView
+        android:id="@+id/switchStatusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/flashlightSwitch"
+        android:layout_marginTop="10dp"
+        android:text="Switch OFF" />
 </RelativeLayout>

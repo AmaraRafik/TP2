@@ -14,7 +14,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import android.util.Log;
+import android.widget.Switch;
+import android.widget.TextView;
 
 public class ActivityFive extends AppCompatActivity implements SensorEventListener {
 
@@ -24,6 +25,9 @@ public class ActivityFive extends AppCompatActivity implements SensorEventListen
     private CameraManager cameraManager;
     private String cameraId;
 
+    private Switch flashlightSwitch;
+
+    private TextView switchStatusText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +35,26 @@ public class ActivityFive extends AppCompatActivity implements SensorEventListen
 
         RelativeLayout mainLayout = findViewById(R.id.main_layout);
 
-        // Setup return button
+
         Button returnButton = findViewById(R.id.returnButton);
         returnButton.setOnClickListener(v -> finish());
 
+        flashlightSwitch = findViewById(R.id.flashlightSwitch);
+        switchStatusText = findViewById(R.id.switchStatusText);
+
+        flashlightSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                switchStatusText.setText("Light ON");
+                if (!isFlashlightOn) {  // Check if the flashlight is already on
+                    toggleFlashlight();
+                }
+            } else {
+                switchStatusText.setText("Light OFF");
+                if (isFlashlightOn) {  // Check if the flashlight is already off
+                    toggleFlashlight();
+                }
+            }
+        });
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
@@ -82,11 +102,10 @@ public class ActivityFive extends AppCompatActivity implements SensorEventListen
     }
 
     private void toggleFlashlight() {
-        Log.d(TAG, "Flash On");
-
         try {
             isFlashlightOn = !isFlashlightOn;
             cameraManager.setTorchMode(cameraId, isFlashlightOn);
+            flashlightSwitch.setChecked(isFlashlightOn);  // Update the switch state
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
